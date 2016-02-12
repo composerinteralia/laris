@@ -1,8 +1,10 @@
 require 'active_support/inflector'
 require_relative '../db/db_connection'
 require_relative 'relation'
+require_relative 'searchable'
 
 class ActiverecordBase
+  extend Searchable
 
   def self.columns
     return @columns if @columns
