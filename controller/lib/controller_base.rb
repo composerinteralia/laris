@@ -51,7 +51,7 @@ class ControllerBase
 
   def render(template_name)
     dir_path = File.dirname(__FILE__)
-    path = "#{dir_path}/../views/#{controller_name}/#{template_name}.html.erb"
+    path = "#{dir_path}/../../views/#{controller_name}/#{template_name}.html.erb"
 
     template = File.read(path)
     content = ERB.new(template).result(binding)

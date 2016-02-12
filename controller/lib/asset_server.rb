@@ -19,7 +19,7 @@ class AssetServer
   def respond_with_asset(req)
     res["Content-Type"] = "mime"
     dir_path = File.dirname(__FILE__)
-    res.write(File.read("#{dir_path}/..#{req.path}"))
+    res.write(File.read("#{dir_path}/../..#{req.path}"))
     res.finish
   end
 end
