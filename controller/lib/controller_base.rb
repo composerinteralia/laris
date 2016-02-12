@@ -4,12 +4,14 @@ require 'erb'
 require 'cgi'
 require_relative './session'
 require_relative './flash'
+require_relative './csrf_protection'
 
 def h(text)
   CGI::escapeHTML(text)
 end
 
 class ControllerBase
+  include CSRF
 
   class DoubleRenderError < StandardError
     def message
