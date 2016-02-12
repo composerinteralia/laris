@@ -1,5 +1,6 @@
 require 'active_support/inflector'
-require_relative 'db/db_connection'
+require_relative '../db/db_connection'
+require_relative 'relation'
 
 class ActiverecordBase
 
@@ -47,9 +48,6 @@ class ActiverecordBase
   end
 
   def initialize(params = {})
-    ### I don't love this either
-    self.class.finalize! unless self.class.finalized?
-
     params.each do |attr_name, value|
       if self.class.columns.include?(attr_name.to_sym)
         send("#{attr_name}=", value)
@@ -68,7 +66,6 @@ class ActiverecordBase
   end
 
   def destroy
-    ### dependent destroy callback could go here
     DBConnection.execute2(<<-SQL, id)
       DELETE FROM
         #{table_name}
