@@ -1,8 +1,16 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
+require 'cgi'
+require_relative './session'
+require_relative './flash'
+
+def h(text)
+  CGI::escapeHTML(text)
+end
 
 class ControllerBase
+
   class DoubleRenderError < StandardError
     def message
       "Render and/or redirect_to were called multiple times in a single action."
@@ -26,6 +34,7 @@ class ControllerBase
 
     res['Location'] = url
     res.status = 302
+    store_cookies(res)
 
     @already_built_response = true
   end
@@ -35,6 +44,7 @@ class ControllerBase
 
     res['Content-Type'] = content_type
     res.write(content)
+    store_cookies(res)
 
     @already_built_response = true
   end
@@ -49,12 +59,24 @@ class ControllerBase
     render_content(content, "text/html")
   end
 
+  def session
+    @session ||= Session.new(req)
+  end
+
+  def flash
+    @flash ||= Flash.new(req)
+  end
+
   def invoke_action(name)
     self.send(name)
     render(name) unless already_built_response?
   end
 
   private
+    def store_cookies(req)
+      session.store_session(res)
+      flash.store_flash(res)
+    end
 
     def controller_name
       self.class.name.underscore
