@@ -1,0 +1,15 @@
+<h2>WTF!</h2>
+
+<h4><%= h(message) %></h4>
+
+<pre>
+  <%= code_preview %>
+</pre>
+
+<ul>
+  <% backtrace.each do |line| %>
+    <li>
+      <%= h(line) %><br>
+    </li>
+  <% end %>
+</ul>
