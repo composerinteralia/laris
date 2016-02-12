@@ -1,4 +1,4 @@
-require_relative '../activerecord_lite'
+require_relative '../activerecord'
 
 # NB database resets every time for testing
 DBConnection.reset
