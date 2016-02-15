@@ -7,12 +7,12 @@ class Route
   end
 
   def matches?(req)
-    pattern =~ req.fullpath &&
+    pattern =~ req.path &&
       http_method == req.request_method.downcase.to_sym
   end
 
   def run(req, res)
-    match_data = pattern.match(req.fullpath)
+    match_data = pattern.match(req.path)
     route_params = Hash[match_data.names.zip(match_data.captures)]
 
     controller = controller_class.new(req, res, route_params)
@@ -51,7 +51,7 @@ class Router
     if route.nil?
       res.status = 404
 
-      res.write("Oops! The requested URL #{req.fullpath} was not not found!")
+      res.write("Oops! The requested URL #{req.path} was not not found!")
     else
       route.run(req, res)
     end
