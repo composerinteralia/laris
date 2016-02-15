@@ -1,3 +1,4 @@
+require 'active_support/inflector'
 require_relative 'associatable'
 require_relative 'relation'
 require_relative 'searchable'

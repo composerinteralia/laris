@@ -5,11 +5,19 @@ require_relative 'lib/router'
 ROUTER = Router.new
 
 ROUTER.draw do
-  get Regexp.new("^/assets$"), AssetsController, :show
-  post Regexp.new("^/assets$"), AssetsController, :create
+  get Regexp.new("^/users$"), UsersController, :index
+  get Regexp.new("^/users/new$"), UsersController, :new
+  post Regexp.new("^/users$"), UsersController, :create
+  get Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :show
+  get Regexp.new("^/users/(?<id>\\d+)/edit$"), UsersController, :edit
+  patch Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :update
+  delete Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :destroy
 
-  get Regexp.new("^/exceptions$"), ExceptionsController, :show
-
-  get Regexp.new("^/flash$"), FlashController, :flash_me
-  get Regexp.new("^/$"), FlashController, :show
+  get Regexp.new("^/users/(?<user_id>\\d+)/posts$"), UsersController, :index
+  get Regexp.new("^/users/(?<user_id>\\d+)/posts/new$"), UsersController, :new
+  post Regexp.new("^/users/(?<user_id>\\d+)/posts$"), UsersController, :create
+  get Regexp.new("^/posts/(?<id>\\d+)$"), UsersController, :show
+  get Regexp.new("^/posts/(?<id>\\d+)/edit$"), UsersController, :edit
+  patch Regexp.new("^/posts/(?<id>\\d+)$"), UsersController, :update
+  delete Regexp.new("^/posts/(?<id>\\d+)$"), UsersController, :destroy
 end
