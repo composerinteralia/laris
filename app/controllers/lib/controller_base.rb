@@ -71,13 +71,18 @@ class ControllerBase
     @flash ||= Flash.new(req)
   end
 
-  def invoke_action(name)
+  def invoke_action(name, method)
+    if method != :get
+      verify_authenticity
+    end
+
     self.send(name)
     render(name) unless already_built_response?
   end
 
   private
     def store_cookies(req)
+      set_session_auth_token
       session.store_session(res)
       flash.store_flash(res)
     end

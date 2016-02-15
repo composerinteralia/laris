@@ -16,7 +16,7 @@ class Route
     route_params = Hash[match_data.names.zip(match_data.captures)]
 
     controller = controller_class.new(req, res, route_params)
-    controller.invoke_action(action_name)
+    controller.invoke_action(action_name, http_method)
   end
 end
 
