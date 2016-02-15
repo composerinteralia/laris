@@ -6,7 +6,6 @@ require_relative 'lib/exception_viewer'
 asset_app = Proc.new do |env|
   req = Rack::Request.new(env)
   res = Rack::Response.new
-  # local variable not defined here!
   ROUTER.run(req, res)
   res.finish
 end

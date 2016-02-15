@@ -1,8 +1,6 @@
-PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-# https://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path
-ROOT_FOLDER = File.dirname(__FILE__)
-CATS_SQL_FILE = File.join(ROOT_FOLDER, 'cats.sql')
-CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats.db')
+dir_name = File.expand_path(File.dirname(__FILE__))
+APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
+APP_DB_FILE = File.join(dir_name, 'app.db')
 
 class DBConnection
   def self.open(db_file_name)
@@ -14,13 +12,14 @@ class DBConnection
   end
 
   def self.reset
-    commands = [
-      "rm '#{CATS_DB_FILE}'",
-      "cat '#{CATS_SQL_FILE}' | sqlite3 '#{CATS_DB_FILE}'"
-    ]
+    commands = ["rm '#{APP_DB_FILE}'"]
+
+    APP_SQL_FILES.each do |file|
+      commands << "cat '#{file}' | sqlite3 '#{APP_DB_FILE}'"
+    end
 
     commands.each { |command| `#{command}` }
-    DBConnection.open(CATS_DB_FILE)
+    DBConnection.open(APP_DB_FILE)
   end
 
   def self.instance
@@ -46,8 +45,6 @@ class DBConnection
   private
 
   def self.print_query(query, *interpolation_args)
-    # return unless PRINT_QUERIES
-
     puts '--------------------'
     puts query
     unless interpolation_args.empty?
