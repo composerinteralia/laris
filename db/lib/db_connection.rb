@@ -2,7 +2,7 @@ require 'sqlite3'
 
 dir_name = File.expand_path(File.dirname(__FILE__))
 APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
-APP_DB_FILE = File.join(dir_name, 'app.db')
+APP_DB_FILE = File.join(dir_name, '../app.db')
 
 class DBConnection
   def self.open(db_file_name)
