@@ -5,7 +5,7 @@ APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
 
 class DBConnection
   def self.open
-    @conn = PG::Connection.new( :dbname => 'app' )
+    @conn = PG::Connection.new( :dbname => ENV[DATABASE_URL] )
   end
 
   def self.migrate

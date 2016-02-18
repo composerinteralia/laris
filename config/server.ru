@@ -21,7 +21,4 @@ app = Rack::Builder.new do
   run asset_app
 end
 
-Rack::Server.start(
-  app: app,
-  Port: 3000
-)
+run app
