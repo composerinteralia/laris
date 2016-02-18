@@ -1,0 +1,282 @@
+html, body, header, footer, main, h1, p, a, ul, li, div, span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  font: inherit;
+  text-align: inherit;
+  vertical-align: inherit;
+  color: inherit;
+  background: transparent;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+body {
+  background: url('/assets/images/background.jpg') no-repeat;
+  background-size: cover;
+  font-family: 'Roboto Condensed', serif;
+  text-align: center;
+}
+
+header {
+  padding: 20px;
+  position: relative;
+  z-index: 3;
+}
+
+.name {
+  font-size: 28px;
+  float: left;
+  text-shadow: #664 0 0 1px;
+}
+
+header > nav {
+  float: right;
+}
+
+header > nav > a {
+  float: left;
+}
+
+.portfolio {
+  margin: 5px 10px;
+  height: 30px;
+  width: 30px;
+  background: url('/assets/images/folder.png');
+  background-size: cover;
+}
+
+.github {
+  margin: 0 10px;
+  height: 40px;
+  width: 40px;
+  background: url('/assets/images/github.png');
+  background-size: cover;
+}
+
+.linkedin {
+  margin: 5px 10px;
+  height: 30px;
+  width: 30px;
+  background: url('/assets/images/linkedin.png');
+  background-size: cover;
+}
+
+.game-header {
+  position: relative;
+  z-index: 2;
+  top: -40px;
+  margin-bottom: -20px;
+}
+
+.game-header > h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  text-shadow: #444 1px 1px 1px;
+}
+
+.game-header > p {
+  margin: 1px;
+  font-size: 16px;
+  text-shadow: #664 0 0 1px;
+}
+
+@-webkit-keyframes shake {
+  0% { -webkit-transform: translate(2px, 1px); }
+	10% { -webkit-transform: translate(-1px, -2px); }
+	20% { -webkit-transform: translate(-3px, 0px); }
+	30% { -webkit-transform: translate(0px, 2px); }
+	40% { -webkit-transform: translate(1px, -1px); }
+	50% { -webkit-transform: translate(-1px, 2px); }
+	60% { -webkit-transform: translate(-3px, 1px); }
+	70% { -webkit-transform: translate(2px, 1px); }
+	80% { -webkit-transform: translate(-1px, -1px); }
+	90% { -webkit-transform: translate(2px, 2px); }
+	100% { -webkit-transform: translate(1px, -2px); }
+}
+
+.board {
+  margin: auto;
+  height: 321px;
+  width: 280px;
+  background: url('/assets/images/bomb.jpg') no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: 5px solid #bbb;
+  border-style: ridge;
+}
+
+.tile {
+  float: left;
+  width: 20px;
+  height: 20px;
+  background: #aaa;
+  padding: 2px;
+  border: 2px solid #ccc;
+  border-style: outset;
+}
+
+.tile:hover {
+  background: #999;
+  cursor: pointer;
+}
+
+span.bomb {
+  position: relative;
+  top: -4px;
+}
+
+.explored {
+  border-style: inset;
+}
+
+.explored:hover {
+  cursor: default;
+  background: #aaa;
+}
+
+.flagged {
+  color: red;
+}
+
+.inactive:hover {
+  background: #aaa;
+  cursor: default;
+}
+
+.bomb-count-1 {
+  color: blue;
+}
+
+.bomb-count-2 {
+  color: green;
+}
+
+.bomb-count-3 {
+  color: red;
+}
+
+.bomb-count-4 {
+  color: darkblue;
+}
+
+.bomb-count-5 {
+  color: brown;
+}
+
+.bomb-count-6 {
+  color: cyan;
+}
+
+.bomb-count-7 {
+  color: black;
+}
+
+.bomb-count-8 {
+  color: grey;
+}
+
+.messages {
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: bold;
+    text-shadow: #664 0 0 1px;
+}
+
+.gameover {
+  font-weight: bold;
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.lost {
+  color: #f10;
+}
+
+.won {
+  color: green;
+}
+
+.display {
+  width: 270px;
+  padding: 2px 5px;
+  margin: auto;
+  background: #aaa;
+  border-bottom: 5px solid #bbb;
+  border-style: ridge;
+}
+
+.nums {
+  width: 54px;
+  background: black;
+  margin: auto;
+  padding: 2px;
+  padding-right: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.bomb-count {
+  float: left;
+}
+
+.timer {
+  float: right;
+}
+
+.num {
+  float: left;
+  height: 28px;
+  width: 17px;
+  margin-right: 1px;
+  background: url('/assets/images/minesweeper.gif');
+}
+
+.one {
+  background-position: -16px 0px;
+}
+
+.two {
+  background-position: -32px 0px;
+}
+
+.three {
+  background-position: -49px 0px;
+}
+
+.four {
+  background-position: -65px 0px;
+}
+
+.five {
+  background-position: -81px 0px;
+}
+
+.six {
+  background-position: -97px 0px;
+}
+
+.seven {
+  background-position: -114px 0px;
+}
+
+.eight {
+  background-position: -130px 0px;
+}
+
+.nine {
+  background-position: -146px 0px;
+}

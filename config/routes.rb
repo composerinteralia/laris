@@ -5,6 +5,8 @@ require_relative 'lib/router'
 ROUTER = Router.new
 
 ROUTER.draw do
+  get Regexp.new("^/$"), StaticPagesController, :root
+
   get Regexp.new("^/users$"), UsersController, :index
   get Regexp.new("^/users/new$"), UsersController, :new
   post Regexp.new("^/users$"), UsersController, :create
