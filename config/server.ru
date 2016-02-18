@@ -16,8 +16,8 @@ asset_app = Proc.new do |env|
 end
 
 app = Rack::Builder.new do
-  use AssetServer
   use ExceptionViewer
+  use AssetServer
   run asset_app
 end
 
