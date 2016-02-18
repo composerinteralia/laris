@@ -61,7 +61,7 @@ class Relation
 
     private
     def query
-      results = DBConnection.execute(statement, *values)
+      results = DBConnection.execute(statement, values)
       self.cache = klass.parse_all(results)
     end
 

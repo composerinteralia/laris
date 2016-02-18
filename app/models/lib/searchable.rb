@@ -13,7 +13,7 @@ module Searchable
   end
 
   def find_by_sql(sql, values = [])
-    results = DBConnection.execute(sql, *values)
+    results = DBConnection.execute(sql, values)
     parse_all(results)
   end
 

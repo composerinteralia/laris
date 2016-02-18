@@ -1,4 +1,5 @@
 require_relative 'lib/controller_base'
+require_relative '../models/post'
 
 class UsersController < ControllerBase
   def create

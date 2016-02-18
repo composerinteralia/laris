@@ -1,6 +1,5 @@
 require_relative 'lib/controller_base'
 require_relative '../models/user'
-require 'byebug'
 
 class UsersController < ControllerBase
   def create

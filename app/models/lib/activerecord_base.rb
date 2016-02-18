@@ -11,15 +11,7 @@ class ActiverecordBase
   def self.columns
     return @columns if @columns
 
-    columns = DBConnection.execute2(<<-SQL)
-      SELECT
-        *
-      FROM
-        #{table_name}
-      LIMIT 0
-    SQL
-
-    @columns = columns.first.map(&:to_sym)
+    @columns = DBConnection.columns(table_name)
   end
 
   def self.destroy_all
@@ -70,7 +62,7 @@ class ActiverecordBase
   end
 
   def destroy
-    DBConnection.execute2(<<-SQL, id)
+    DBConnection.execute(<<-SQL, [id])
       DELETE FROM
         #{table_name}
       WHERE
@@ -81,17 +73,21 @@ class ActiverecordBase
   end
 
   def insert
-    col_names = columns.join(", ")
-    question_marks = (["?"] * columns.size).join(", ")
+    cols = columns.reject { |col| col == :id }
+    col_values = cols.map { |attr_name| send(attr_name) }
+    col_names = cols.join(", ")
+    question_marks = (["?"] * cols.size).join(", ")
 
-    result = DBConnection.execute(<<-SQL, *attribute_values)
+    result = DBConnection.execute(<<-SQL, col_values)
       INSERT INTO
         #{table_name} (#{col_names})
       VALUES
         (#{question_marks})
+      RETURNING id
     SQL
 
-    self.id = DBConnection.last_insert_row_id
+    self.id = result.first['id']
+    # DBConnection.last_insert_row_id
 
     true
   end
@@ -103,7 +99,7 @@ class ActiverecordBase
   def update
     set_sql = columns.map { |attr_name| "#{attr_name} = ?" }.join(", ")
 
-    result = DBConnection.execute(<<-SQL, *attribute_values, id)
+    result = DBConnection.execute(<<-SQL, attribute_values << id)
       UPDATE
         #{table_name}
       SET

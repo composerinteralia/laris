@@ -1,10 +1,12 @@
+#!/usr/bin/env ruby
+
 require 'rack'
 require_relative 'routes'
 require_relative 'lib/asset_server'
 require_relative 'lib/exception_viewer'
 require_relative '../db/lib/db_connection'
 
-DBConnection.reset
+DBConnection.migrate
 
 asset_app = Proc.new do |env|
   req = Rack::Request.new(env)
