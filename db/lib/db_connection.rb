@@ -5,7 +5,18 @@ APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
 
 class DBConnection
   def self.open
-    @conn = PG::Connection.new( :dbname => ENV[DATABASE_URL] )
+    user, password, host, port, dbname =
+      ENV['DATABASE_URL'].match(
+        /^postgres:\/\/(\w*):(\w*)@([\w|.|-]*):(\d{4})\/(\w*)$/
+      ).captures
+
+    @conn = PG::Connection.new(
+      user: user,
+      password: password,
+      host: host,
+      port: port.to_i,
+      dbname: dbname,
+    )
   end
 
   def self.migrate
