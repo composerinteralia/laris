@@ -8,7 +8,7 @@ class AssetServer
 
   def call(env)
     req = Rack::Request.new(env)
-    if req.path =~ (/^\/public/)
+    if req.path =~ (/^\/assets/)
       respond_with_asset(req)
     else
       app.call(env)
@@ -17,9 +17,13 @@ class AssetServer
 
   private
   def respond_with_asset(req)
-    res["Content-Type"] = "mime"
     dir_path = File.dirname(__FILE__)
-    res.write(File.read("#{dir_path}/../..#{req.path}"))
+    path = "#{dir_path}/../../app#{req.path}"
+
+    ext = File.extname(path)
+    res["Content-Type"] = Rack::Mime::MIME_TYPES[ext]
+
+    res.write(File.read(path))
     res.finish
   end
 end
