@@ -25,6 +25,11 @@ class ControllerBase
     @req = req
     @res = res
     @params = params.merge(req.params)
+
+    body = req.body.read
+    if body =~ /^{.*}$/
+      @params.merge!(JSON.parse(body))
+    end
   end
 
   def already_built_response?
@@ -72,7 +77,7 @@ class ControllerBase
   end
 
   def invoke_action(name, method)
-    if method != :get
+    unless method == :get || req.xhr?
       verify_authenticity
     end
 
