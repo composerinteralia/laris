@@ -18,9 +18,9 @@ class Relation
       @cache = nil
     end
 
-    def method_missing(method, *args)
+    def method_missing(method, *args, &blk)
       query if cache.nil?
-      cache.send(method, *args)
+      cache.send(method, *args, &blk)
     end
 
     def reload!
