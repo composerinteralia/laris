@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS posts;
-
-CREATE TABLE posts (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  body VARCHAR(255) NOT NULL,
-  done BOOLEAN DEFAULT false,
-  user_id INTEGER REFERENCES users (id)
-);

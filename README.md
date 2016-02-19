@@ -1,24 +1,74 @@
-#[Minesweeper][minesweeper]
+#Laris
 
-The classic puzzle game built for the browser with React.js
+A lightweight MVC framework inspired by Ruby on Rails.
 
-###[Play Now!][minesweeper]
+To see it in action, check out my minesweeper game: [live][minesweeper]	•  [github][minesweeper-github]
 
-##Details:
-* Clicking a tile either explodes it or reveals it and recursively reveals any safe neighbors
-* Right clicking (or alt + click) flags tiles as unsafe
-* Object Oriented design for board and tile logic
-* Performance enhanced by caching tile's neighbors and neighboring bomb count
-* Random bomb placement achieved with a monkey-patched array sampling method
-* Renders Tile components with classes (for CSS styling) reflecting the tile's state and bomb count
-* Renders Tiles components with inline styling for randomized shaking and exploding on winning or losing
-* Prevents first-turn loss by moving the bomb to another tile
+##Getting Started
+* Clone the repo
+* run `bundle install`
+* Put any sql files in db/migrations/  
+N.B. starting up the server will reset your db! I'll fix this soon
+* Create models for your tables in app/models/
 
-##Screenshots:
+```
+# app/models/post.rb
 
-![gameplay]
-![gameover]
+require_relative 'lib/activerecord_base'
 
-[minesweeper]: https://composerinteralia.github.io/minesweeper/
-[gameplay]: ./app/assets/images/gameplay.png
-[gameover]: ./app/assets/images/gameover.png
+class Post < ActiverecordBase
+  finalize!
+
+  belongs_to :author, class_name: "User", foreign_key: :user_id
+end
+```
+
+* Construct routes using a regex, controller name, and method name
+
+```
+# config/routes.rb
+
+ROUTER.draw do
+  get Regexp.new("^/users$"), UsersController, :index
+  get Regexp.new("^/users/new$"), UsersController, :new
+  post Regexp.new("^/users$"), UsersController, :create
+  get Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :show
+  get Regexp.new("^/users/(?<id>\\d+)/edit$"), UsersController, :edit
+  patch Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :update
+  delete Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :destroy
+end
+```
+* Add controllers in app/controllers/
+
+```
+# app/controllers/users_controller.rb
+
+require_relative 'lib/controller_base'
+require_relative '../models/user'
+
+class UsersController < ControllerBase
+  def index
+    @users = User.all
+
+    render :index
+  end
+end
+```
+
+* Create erb views in app/views/<controller>
+
+```
+# app/views/users/index.html.erb
+
+<ul>
+  <% @users.each do |user| %>
+    <li><%= user.name %></li>
+  <% end %>
+</ul>
+```
+* Place any assets in app/assets
+* Start a server on localhost: `bundle exec rackup config/server.ru`
+* You did it!
+
+[minesweeper]: http://minesweepers.herokuapp.com
+[minesweeper-github]: http://github.com/composerinteralia/minesweeper/
