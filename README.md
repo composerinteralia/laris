@@ -7,8 +7,7 @@ To see it in action, check out my minesweeper game: [live][minesweeper]	•  [gi
 ##Getting Started
 * Clone the repo
 * run `bundle install`
-* Put any sql files in db/migrations/  
-N.B. starting up the server will reset your db! I'll fix this soon
+* Put sql files in db/migrations/ numbered in the order you want them to be executed
 * Create models for your tables in app/models/
 
 ```
@@ -67,7 +66,9 @@ end
 </ul>
 ```
 * Place any assets in app/assets
-* Start a server on localhost: `bundle exec rackup config/server.ru`
+* Set an environment variable with your Heroku database url (`export DATABASE_URL=<your_database_url>`). (After creating a new Heroku app you can find your database url with `heroku config -s | grep DATABASE_URL>`)
+* load db/lib/db_connection.rb in irb or pry and run DBConnection.migrate (I will add a rake task for running migrations soon)
+* Run on localhost: `bundle exec rackup config/server.ru` or push to Heroku
 * You did it!
 
 [minesweeper]: http://minesweepers.herokuapp.com
