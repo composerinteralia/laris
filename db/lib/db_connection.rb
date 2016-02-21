@@ -20,19 +20,6 @@ class DBConnection
   end
 
   def self.migrate
-    # res = instance.exec(<<-SQL)
-    #   SELECT EXISTS (
-    #     SELECT
-    #       1
-    #     FROM
-    #       pg_catalog.pg_class c
-    #     WHERE
-    #       c.relname = 'migrations' AND
-    #       c.relkind = 'r')
-    # SQL
-    #
-    # res[0]['exists'] == "t"
-
     ensure_migrations_table
 
     APP_SQL_FILES.each do |file|
@@ -57,17 +44,6 @@ class DBConnection
   end
 
   def self.columns(table_name)
-    # cols = instance.exec(<<-SQL)
-    #   SELECT
-    #     column_name
-    #   FROM
-    #     information_schema.columns
-    #   WHERE
-    #     table_name = '#{table_name}'
-    # SQL
-    #
-    # cols.map { |col| col['column_name'].to_sym }
-
     cols = instance.exec(<<-SQL)
       SELECT
         attname
@@ -84,11 +60,6 @@ class DBConnection
 
   private
 
-  def self.instance
-    open if @conn.nil?
-    @conn
-  end
-
   def self.ensure_migrations_table
     res = instance.exec(<<-SQL)
       SELECT to_regclass('migrations') AS exists
@@ -102,6 +73,11 @@ class DBConnection
         )
       SQL
     end
+  end
+
+  def self.instance
+    open if @conn.nil?
+    @conn
   end
 
   def self.migrated_files
