@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'rack'
 require_relative 'routes'
 require_relative 'lib/asset_server'

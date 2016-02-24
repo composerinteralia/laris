@@ -4,7 +4,7 @@ require_relative 'relation'
 require_relative 'searchable'
 require_relative '../../../db/lib/db_connection'
 
-class ActiverecordBase
+class LarisrecordBase
   extend Associatable
   extend Searchable
 

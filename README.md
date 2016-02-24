@@ -13,9 +13,9 @@ To see it in action, check out my minesweeper game: [live][minesweeper]	•  [gi
 ```
 # app/models/post.rb
 
-require_relative 'lib/activerecord_base'
+require_relative 'lib/larisrecord_base'
 
-class Post < ActiverecordBase
+class Post < LarisrecordBase
   finalize!
 
   belongs_to :author, class_name: "User", foreign_key: :user_id
@@ -66,9 +66,9 @@ end
 </ul>
 ```
 * Place any assets in app/assets
-* Set an environment variable with your Heroku database url (`export DATABASE_URL=<your_database_url>`). (After creating a new Heroku app you can find your database url with `heroku config -s | grep DATABASE_URL>`)
-* load db/lib/db_connection.rb in irb or pry and run DBConnection.migrate (I will add a rake task for running migrations soon)
-* Run on localhost: `bundle exec rackup config/server.ru` or push to Heroku
+* To run on localhost, grab your Heroku database URL (`heroku config -s | grep DATABASE_URL>`) and set it as an environment variable (`export DATABASE_URL=<your_database_url>`). (Alternately, you can rework db/lib/db_connection.rb as you please.)
+* load db/lib/db_connection.rb in irb or pry and run DBConnection.migrate (I will add a rake task for creating and running migrations soon)
+* Run on localhost with `bundle exec rackup config/server.ru` or push to Heroku
 * You did it!
 
 [minesweeper]: http://minesweepers.herokuapp.com
