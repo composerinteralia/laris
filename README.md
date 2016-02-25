@@ -66,7 +66,7 @@ end
 </ul>
 ```
 * Place any assets in app/assets
-* To run on localhost, grab your Heroku database URL (`heroku config -s | grep DATABASE_URL>`) and set it as an environment variable (`export DATABASE_URL=<your_database_url>`). (Alternately, you can rework db/lib/db_connection.rb as you please.)
+* To run on localhost, grab your Heroku database URL (`heroku config -s | grep DATABASE_URL`) and set it as an environment variable (`export DATABASE_URL=<your_database_url>`). (Alternately, you can rework db/lib/db_connection.rb as you please.)
 * load db/lib/db_connection.rb in irb or pry and run DBConnection.migrate (I will add a rake task for creating and running migrations soon)
 * Run on localhost with `bundle exec rackup config/server.ru` or push to Heroku
 * You did it!

@@ -1,21 +1,19 @@
 require 'pg'
+require 'uri'
 
 dir_name = File.expand_path(File.dirname(__FILE__))
 APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
 
 class DBConnection
   def self.open
-    user, password, host, port, dbname =
-      ENV['DATABASE_URL'].match(
-        /^postgres:\/\/(\w*):(\w*)@([\w|.|-]*):(\d{4})\/(\w*)$/
-      ).captures
+    uri = URI.parse(ENV['DATABASE_URL'])
 
     @conn = PG::Connection.new(
-      user: user,
-      password: password,
-      host: host,
-      port: port.to_i,
-      dbname: dbname,
+      user: uri.user,
+      password: uri.password,
+      host: uri.host,
+      port: uri.port,
+      dbname: uri.path[1..-1],
     )
   end
 
