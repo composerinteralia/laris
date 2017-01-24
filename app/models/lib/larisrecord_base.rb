@@ -17,7 +17,7 @@ class LarisrecordBase
     row.destroy
   end
 
-  def self.finalize!
+  def self.laris_finalize!
     columns.each do |attr_name|
       define_method(attr_name) do
         attributes[attr_name]
@@ -114,3 +114,8 @@ class LarisrecordBase
     self.class.table_name
   end
 end
+
+TracePoint.new(:end) do |tp|
+  klass = tp.binding.receiver
+  klass.laris_finalize! if klass.respond_to?(:laris_finalize!)
+end.enable
