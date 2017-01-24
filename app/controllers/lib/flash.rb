@@ -2,7 +2,7 @@ class Flash
   attr_reader :stale_cookie, :fresh_cookie
 
   def initialize(req)
-    raw_cookie = req.cookies['_rails_lite_app_flash']
+    raw_cookie = req.cookies['_laris_flash']
     @stale_cookie = raw_cookie ? JSON.parse(raw_cookie) : {}
     @fresh_cookie = {}
     @persistent = true
@@ -34,6 +34,6 @@ class Flash
 
   def store_flash(res)
     new_cookie = { path: '/', value: fresh_cookie.to_json }
-    res.set_cookie('_rails_lite_app_flash', new_cookie)
+    res.set_cookie('_laris_flash', new_cookie)
   end
 end
