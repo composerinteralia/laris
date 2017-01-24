@@ -1,11 +1,3 @@
-require 'active_support'
-require 'active_support/core_ext'
-require 'erb'
-require 'cgi'
-require_relative './session'
-require_relative './flash'
-require_relative './csrf_protection'
-
 def h(text)
   CGI::escapeHTML(text)
 end

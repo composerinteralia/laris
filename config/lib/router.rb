@@ -57,3 +57,5 @@ class Router
     end
   end
 end
+
+ROUTER = Router.new

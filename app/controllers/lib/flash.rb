@@ -1,5 +1,3 @@
-require 'json'
-
 class Flash
   attr_reader :stale_cookie, :fresh_cookie
 

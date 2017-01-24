@@ -1,5 +1,3 @@
-require 'json'
-
 class Session
   attr_reader :cookie
 

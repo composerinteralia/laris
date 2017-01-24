@@ -1,5 +1,4 @@
 module Searchable
-
   def all
     Relation.new(self)
   end

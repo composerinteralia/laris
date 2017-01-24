@@ -1,9 +1,3 @@
-require 'active_support/inflector'
-require_relative 'associatable'
-require_relative 'relation'
-require_relative 'searchable'
-require_relative '../../../db/lib/db_connection'
-
 class LarisrecordBase
   extend Associatable
   extend Searchable
