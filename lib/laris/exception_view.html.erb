@@ -1,6 +1,6 @@
 <h2>WTF!</h2>
 
-<h4><%= h(message) %></h4>
+<h4><%= CGI::escapeHTML(message) %></h4>
 
 <pre>
   <%= code_preview %>
@@ -9,7 +9,7 @@
 <ul>
   <% backtrace.each do |line| %>
     <li>
-      <%= h(line) %><br>
+      <%= CGI::escapeHTML(line) %><br>
     </li>
   <% end %>
 </ul>

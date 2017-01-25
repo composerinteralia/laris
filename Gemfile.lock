@@ -1,17 +1,25 @@
+PATH
+  remote: .
+  specs:
+    laris (0.0.0)
+      activesupport
+      pg
+      rack
+
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.5.1)
+    activesupport (5.0.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    concurrent-ruby (1.0.4)
     i18n (0.7.0)
-    json (1.8.3)
-    minitest (5.8.4)
-    pg (0.18.4)
-    rack (1.6.4)
+    minitest (5.10.1)
+    pg (0.19.0)
+    rack (2.0.1)
+    rake (10.5.0)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -20,9 +28,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
-  pg
-  rack
+  bundler (~> 1.13)
+  laris!
+  rake (~> 10.0)
 
 BUNDLED WITH
-   1.10.6
+   1.13.6

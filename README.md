@@ -4,27 +4,27 @@ A lightweight MVC framework inspired by Ruby on Rails.
 
 To see it in action, check out my minesweeper game: [live][minesweeper]	•  [github][minesweeper-github]
 
-##Getting Started
-* Clone the repo
-* run `bundle install`
-* Put sql files in db/migrations/ numbered in the order you want them to be executed
-* Create models for your tables in app/models/
+[minesweeper]: http://minesweepers.herokuapp.com
+[minesweeper-github]: http://github.com/composerinteralia/minesweeper/
 
-```
+##Getting Started
+* `gem install laris`
+* Put sql files in `db/migrations/` numbered in the order you want them to be
+executed (NB I need to add a rake task for migrating. At the moment you will
+need to run `DBConnection.migrate` yourself)
+* Create models in app/models/
+
+```rb
 # app/models/post.rb
 
-require_relative 'lib/larisrecord_base'
-
 class Post < LarisrecordBase
-  finalize!
-
   belongs_to :author, class_name: "User", foreign_key: :user_id
 end
 ```
 
 * Construct routes using a regex, controller name, and method name
 
-```
+```rb
 # config/routes.rb
 
 ROUTER.draw do
@@ -37,13 +37,11 @@ ROUTER.draw do
   delete Regexp.new("^/users/(?<id>\\d+)$"), UsersController, :destroy
 end
 ```
+
 * Add controllers in app/controllers/
 
-```
+```rb
 # app/controllers/users_controller.rb
-
-require_relative 'lib/controller_base'
-require_relative '../models/user'
 
 class UsersController < ControllerBase
   def index
@@ -65,11 +63,39 @@ end
   <% end %>
 </ul>
 ```
+
 * Place any assets in app/assets
-* To run on localhost, grab your Heroku database URL (`heroku config -s | grep DATABASE_URL`) and set it as an environment variable (`export DATABASE_URL=<your_database_url>`). (Alternately, you can rework db/lib/db_connection.rb as you please.)
-* load db/lib/db_connection.rb in irb or pry and run DBConnection.migrate (I will add a rake task for creating and running migrations soon)
-* Run on localhost with `bundle exec rackup config/server.ru` or push to Heroku
+* You will need a database URL to run locally (yeah, I have work to do). If you
+are feeling adventurous, you can use your Heroku database URL, but probably you shouldn't...
+
+```sh
+export DATABASE_URL=$(heroku config -s | grep DATABASE_URL | sed -e "s/^DATABASE_URL='//" -e "s/'//")
+```
+
+* Add these to the root of your project:
+
+```rb
+# laris.ru
+
+require 'laris'
+Laris.root = File.expand_path(File.dirname(__FILE__))
+
+require_relative 'config/routes'
+
+run Laris.app
+```
+
+```
+# Procfile
+
+web: bundle exec rackup laris.ru -p $PORT
+```
+
+* Start up your app with `bundle exec rackup laris.ru` or push to Heroku
 * You did it!
 
-[minesweeper]: http://minesweepers.herokuapp.com
-[minesweeper-github]: http://github.com/composerinteralia/minesweeper/
+## TODO
+* Database config file
+* Rake task for migrations
+* Migrations in Ruby, not raw SQL
+* `laris new`

@@ -18,7 +18,7 @@ class AssetServer
   private
   def respond_with_asset(req)
     dir_path = File.dirname(__FILE__)
-    path = "#{dir_path}/../../app#{req.path}"
+    path = File.join(Laris::ROOT, "app", req.path)
 
     ext = File.extname(path)
     ext = ".json" if ext == ".map"

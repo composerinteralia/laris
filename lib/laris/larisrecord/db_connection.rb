@@ -1,9 +1,3 @@
-require 'pg'
-require 'uri'
-
-dir_name = File.expand_path(File.dirname(__FILE__))
-APP_SQL_FILES = Dir["#{dir_name}/../migrations/*.sql"]
-
 class DBConnection
   def self.open
     uri = URI.parse(ENV['DATABASE_URL'])
@@ -20,7 +14,8 @@ class DBConnection
   def self.migrate
     ensure_migrations_table
 
-    APP_SQL_FILES.each do |file|
+    migrations = Dir[File.join(Laris::ROOT, "/db/migrations/*.sql")]
+    migrations.each do |file|
       filename = file.match(/([\w|-]*)\.sql$/)[1]
 
       unless migrated_files.include?(filename)

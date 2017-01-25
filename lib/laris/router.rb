@@ -58,4 +58,4 @@ class Router
   end
 end
 
-ROUTER = Router.new
+Laris::Router = Router.new

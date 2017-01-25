@@ -1,7 +1,4 @@
 class LarisrecordBase
-  extend Associatable
-  extend Searchable
-
   def self.columns
     return @columns if @columns
 
@@ -114,8 +111,3 @@ class LarisrecordBase
     self.class.table_name
   end
 end
-
-TracePoint.new(:end) do |tp|
-  klass = tp.binding.receiver
-  klass.laris_finalize! if klass.respond_to?(:laris_finalize!)
-end.enable

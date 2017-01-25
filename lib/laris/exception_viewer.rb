@@ -25,10 +25,7 @@ class ExceptionViewer
   end
 
   def content
-    dir_path = File.dirname(__FILE__)
-    path = "#{dir_path}/../../app/views/exception_view.html.erb"
-    template = File.read(path)
-
+    template = File.read("#{File.dirname(__FILE__)}/exception_view.html.erb")
     ERB.new(template).result(binding)
   end
 

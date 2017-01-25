@@ -1,11 +1,7 @@
 module Laris
-  ROOT = File.join(File.dirname(__FILE__), "..", "..")
   AUTOLOAD_PATHS = [
     "app/models",
-    "app/models/lib",
     "app/controllers",
-    "app/controllers/lib",
-    "config/lib",
   ]
 end
 

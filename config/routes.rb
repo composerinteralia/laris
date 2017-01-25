@@ -1,3 +1,0 @@
-ROUTER.draw do
-
-end

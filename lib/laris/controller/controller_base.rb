@@ -1,10 +1,4 @@
-def h(text)
-  CGI::escapeHTML(text)
-end
-
 class ControllerBase
-  include CSRF
-
   class DoubleRenderError < StandardError
     def message
       "Render and/or redirect_to were called multiple times in a single action."
@@ -28,6 +22,10 @@ class ControllerBase
     @already_built_response
   end
 
+  def h(text)
+    CGI::escapeHTML(text)
+  end
+
   def redirect_to(url)
     raise DoubleRenderError if already_built_response?
 
@@ -49,10 +47,12 @@ class ControllerBase
   end
 
   def render(template_name)
-    dir_path = File.dirname(__FILE__)
-
-    controller = controller_name.remove("_controller")
-    path = "#{dir_path}/../../views/#{controller}/#{template_name}.html.erb"
+    path = File.join(
+      Laris::ROOT,
+      'app/views',
+      controller_name.remove("_controller"),
+      "#{template_name}.html.erb",
+    )
 
     template = File.read(path)
     content = ERB.new(template).result(binding)
