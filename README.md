@@ -1,4 +1,4 @@
-#Laris
+# Laris
 
 A lightweight MVC framework inspired by Ruby on Rails.
 
@@ -7,7 +7,7 @@ To see it in action, check out my minesweeper game: [live][minesweeper]	•  [gi
 [minesweeper]: http://minesweepers.herokuapp.com
 [minesweeper-github]: http://github.com/composerinteralia/minesweeper/
 
-##Getting Started
+## Getting Started
 * `gem install laris`
 * Put sql files in `db/migrations/` numbered in the order you want them to be
 executed (NB I need to add a rake task for migrating. At the moment you will
